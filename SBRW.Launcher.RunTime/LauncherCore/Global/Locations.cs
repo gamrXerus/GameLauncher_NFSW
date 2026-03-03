@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 namespace SBRW.Launcher.RunTime.LauncherCore.Global
@@ -22,7 +22,7 @@ namespace SBRW.Launcher.RunTime.LauncherCore.Global
 #if !(RELEASE_UNIX || DEBUG_UNIX)
         public static string LauncherCustomServers { get { return Path.Combine(RoamingAppDataFolder_Launcher, NameNewServersJSON); } }
 #else
-        public static string LauncherCustomServers { get { return Path.Combine(LauncherDataFolder); } }
+        public static string LauncherCustomServers { get { return Path.Combine(LauncherDataFolder, NameNewServersJSON); } }
 #endif
         public static string UserSettingsFolder { get { return Path.Combine(RoamingAppDataFolder, "Need for Speed World", "Settings"); } }
         public static string UserSettingsXML { get { return Path.Combine(UserSettingsFolder, "UserSettings.xml"); } }

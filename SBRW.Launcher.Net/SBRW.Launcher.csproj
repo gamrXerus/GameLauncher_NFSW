@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -72,16 +72,39 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="System.Management" Version="10.0.3" />
+    <Reference Include="SBRW.Ini.Parser">
+      <HintPath>..\Dependencies\SBRW.Ini.Parser.dll</HintPath>
+    </Reference>
+    <Reference Include="SBRW.Launcher.Core.Discord">
+      <HintPath>..\Dependencies\SBRW.Launcher.Core.Discord.dll</HintPath>
+    </Reference>
+    <Reference Include="SBRW.Launcher.Core.Downloader.LZMA">
+      <HintPath>..\Dependencies\SBRW.Launcher.Core.Downloader.LZMA.dll</HintPath>
+    </Reference>
+    <Reference Include="SBRW.Launcher.Core.Downloader">
+      <HintPath>..\Dependencies\SBRW.Launcher.Core.Downloader.dll</HintPath>
+    </Reference>
+    <Reference Include="SBRW.Launcher.Core.Extra">
+      <HintPath>..\Dependencies\SBRW.Launcher.Core.Extra.dll</HintPath>
+    </Reference>
+    <Reference Include="SBRW.Launcher.Core.Proxy">
+      <HintPath>..\Dependencies\SBRW.Launcher.Core.Proxy.dll</HintPath>
+    </Reference>
+    <Reference Include="SBRW.Launcher.Core.Theme">
+      <HintPath>..\Dependencies\SBRW.Launcher.Core.Theme.dll</HintPath>
+    </Reference>
+    <Reference Include="SBRW.Launcher.Core">
+      <HintPath>..\Dependencies\SBRW.Launcher.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SBRW.Nancy.Hosting.Self">
+      <HintPath>..\Dependencies\SBRW.Nancy.Hosting.Self.dll</HintPath>
+    </Reference>
+    <Reference Include="SBRW.Nancy">
+      <HintPath>..\Dependencies\SBRW.Nancy.dll</HintPath>
+    </Reference>
     <PackageReference Include="Microsoft.PowerShell.5.ReferenceAssemblies" Version="1.1.0" />
-    <PackageReference Include="SBRW.Launcher.Core" Version="0.3.0" />
-    <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.3.0" />
-    <PackageReference Include="SBRW.Launcher.Core.Downloader" Version="0.3.7" />
-    <PackageReference Include="SBRW.Launcher.Core.Downloader.LZMA" Version="0.3.1" />
-    <PackageReference Include="SBRW.Launcher.Core.Extra" Version="0.3.6" />
-    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.3.0" />
-    <PackageReference Include="SBRW.Launcher.Core.Theme" Version="0.2.0" />
-    <PackageReference Include="SBRW.Nancy" Version="2.0.13" />
-    <PackageReference Include="SBRW.Nancy.Hosting.Self" Version="2.0.11" />
     <PackageReference Include="System.IO.Compression" Version="4.3.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="WindowsFirewallHelper" Version="2.2.0.86" />
@@ -90,11 +113,11 @@
   <ItemGroup Condition="'$(Configuration)'=='Release' OR '$(Configuration)'=='Release.Unix'">
     <ProjectReference Include="..\GameLauncher\GameLauncher.csproj" />
   </ItemGroup>
-
+<!--
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="if &quot;$(Configuration)&quot; == &quot;Release&quot; (&#xD;&#xA;if exist &quot;$(SolutionDir)Keys\Launcher.p12&quot; (&quot;C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x86\signtool.exe&quot; sign /f &quot;$(SolutionDir)Keys\Launcher.p12&quot; /p &quot;Launcher Development CRT&quot; /d &quot;Soapbox Race World&quot; /du &quot;https://soapboxrace.world&quot; /tr http://timestamp.digicert.com /td SHA256 &quot;$(TargetPath)&quot;)&#xD;&#xA;if exist &quot;$(SolutionDir)Keys\Launcher.p12&quot; (&quot;C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x86\signtool.exe&quot; sign /f &quot;$(SolutionDir)Keys\Launcher.p12&quot; /p &quot;Launcher Development CRT&quot; /d &quot;Soapbox Race World&quot; /du &quot;https://soapboxrace.world&quot; /tr http://timestamp.digicert.com /td SHA256 &quot;$(TargetDir)SBRW.*.exe&quot;)&#xD;&#xA;)&#xD;&#xA;&#xD;&#xA;if &quot;$(Configuration)&quot; == &quot;Release.Unix&quot; (&#xD;&#xA;if exist &quot;$(SolutionDir)Keys\Launcher.p12&quot; (&quot;C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x86\signtool.exe&quot; sign /f &quot;$(SolutionDir)Keys\Launcher.p12&quot; /p &quot;Launcher Development CRT&quot; /d &quot;Soapbox Race World&quot; /du &quot;https://soapboxrace.world&quot; /tr http://timestamp.digicert.com /td SHA256 &quot;$(TargetPath)&quot;)&#xD;&#xA;if exist &quot;$(SolutionDir)Keys\Launcher.p12&quot; (&quot;C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x86\signtool.exe&quot; sign /f &quot;$(SolutionDir)Keys\Launcher.p12&quot; /p &quot;Launcher Development CRT&quot; /d &quot;Soapbox Race World&quot; /du &quot;https://soapboxrace.world&quot; /tr http://timestamp.digicert.com /td SHA256 &quot;$(TargetDir)SBRW.*.exe&quot;)&#xD;&#xA;)" />
   </Target>
-
+-->
   <Import Project="..\SBRW.Launcher.RunTime\SBRW.Launcher.RunTime.projitems" Label="Shared" />
 
 </Project>

@@ -322,19 +322,6 @@ namespace SBRW.Launcher.Net
                     {
                         FunctionStatus.ErrorCloseLauncher("Closing From Downloaded Missing LZMA", LauncherMustRestart);
                     }
-#if !(RELEASE_UNIX || DEBUG_UNIX)
-                    else if (UnixOS.Detected())
-                    {
-                        FunctionStatus.LauncherForceCloseReason = "Running Windows Build on Unix is Not Allowed";
-                        FunctionStatus.ErrorCloseLauncher(FunctionStatus.LauncherForceCloseReason, LauncherMustRestart, null, true, true);
-                    }
-#else
-                    else if (!UnixOS.Detected())
-                    {
-                        FunctionStatus.LauncherForceCloseReason = "Running Unix Build on Windows is Not Allowed";
-                        FunctionStatus.ErrorCloseLauncher(FunctionStatus.LauncherForceCloseReason, LauncherMustRestart, null, true, true);
-                    }
-#endif
                     else
                     {
                         Mutex No_Java = new Mutex(false, "GameLauncherNFSW-MeTonaTOR");
@@ -342,96 +329,7 @@ namespace SBRW.Launcher.Net
                         {
                             if (No_Java.WaitOne(0, false))
                             {
-#if !(RELEASE_UNIX || DEBUG_UNIX)
-                                /* MONO Hates this... */
-                                string[] File_List =
-                                {
-                                        "DiscordRPC.dll - 1.1.3.18",
-                                        "Flurl.dll - 3.0.6",
-                                        "Flurl.Http.dll - 3.2.4",
-                                        "LZMA.dll - 9.10 beta",
-                                        "Newtonsoft.Json.dll - 13.0.3",
-                                        "System.ValueTuple.dll - 4.6.26515.06 @BuiltBy: dlab-DDVSOWINAGE059 " +
-                                        "@Branch: release/2.1 @SrcCode: https://github.com/dotnet/corefx/tree/30ab651fcb4354552bd4891619a0bdd81e0ebdbf",
-                                        "WindowsFirewallHelper.dll - 2.2.0.85",
-                                        "SBRW.Ini.Parser.dll - 3.0.2",
-                                        "SBRW.Nancy.dll - 2.0.13",
-                                        "SBRW.Nancy.Hosting.Self.dll - 2.0.11",
-                                        "SBRW.Launcher.Core.dll - 0.3.0",
-                                        "SBRW.Launcher.Core.Extra.dll - 0.3.6",
-                                        "SBRW.Launcher.Core.Discord.dll - 0.3.0",
-                                        "SBRW.Launcher.Core.Proxy.dll - 0.3.0",
-                                        "SBRW.Launcher.Core.Theme.dll - 0.2.0",
-                                        "SBRW.Launcher.Core.Downloader.dll - 0.3.7",
-                                        "SBRW.Launcher.Core.Downloader.LZMA.dll - 0.3.1"
-                                };
-
-                                List<string> Missing_File_List = new List<string>();
-
-                                foreach (string File_String in File_List)
-                                {
-                                    string[] Split_File_Version = File_String.Split(new string[] { " - " }, StringSplitOptions.None);
-
-                                    if (!File.Exists(Path.Combine(Directory.GetCurrentDirectory(), Split_File_Version[0])))
-                                    {
-                                        Missing_File_List.Add(Split_File_Version[0] + " - " + Translations.Database("Program_TextBox_File_NotFound"));
-                                    }
-                                    else
-                                    {
-                                        try
-                                        {
-                                            FileVersionInfo Version_Info = FileVersionInfo.GetVersionInfo(Split_File_Version[0]);
-                                            string[] Version_Split = (Version_Info.ProductVersion ?? string.Empty).Split('+');
-                                            string File_Version = Version_Split[0];
-
-                                            if (File_Version == "")
-                                            {
-                                                Missing_File_List.Add(Split_File_Version[0] + " - " + Translations.Database("Program_TextBox_File_Invalid"));
-                                            }
-                                            else
-                                            {
-                                                if (!HardwareInfo.CheckArchitectureFile(Split_File_Version[0]))
-                                                {
-                                                    Missing_File_List.Add(Split_File_Version[0] + " - " + Translations.Database("Program_TextBox_File_Invalid_CPU"));
-                                                }
-                                                else
-                                                {
-                                                    if (File_Version != Split_File_Version[1])
-                                                    {
-                                                        Missing_File_List.Add(Split_File_Version[0] + " - " + Translations.Database("Program_TextBox_File_Invalid_Version") +
-                                                            "(" + Split_File_Version[1] + " != " + File_Version + ")");
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        catch
-                                        {
-                                            Missing_File_List.Add(Split_File_Version[0] + " - " + Translations.Database("Program_TextBox_File_Invalid"));
-                                        }
-                                    }
-                                }
-
-                                if (Missing_File_List.Count != 0)
-                                {
-                                    string Message_Display = Translations.Database("Program_TextBox_File_Invalid_Start");
-
-                                    foreach (string File_String in Missing_File_List)
-                                    {
-                                        Message_Display += "• " + File_String + "\n";
-                                    }
-
-                                    FunctionStatus.LauncherForceClose = true;
-                                    MessageBox.Show(null, Message_Display, "GameLauncher", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
-#endif
-                                if (FunctionStatus.LauncherForceClose)
-                                {
-                                    FunctionStatus.ErrorCloseLauncher("Closing From Missing .dll Files Check", LauncherMustRestart);
-                                }
-                                else
-                                {
-                                    Start(args);
-                                }
+                                Start(args);
                             }
                             else
                             {

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using SBRW.Launcher.RunTime.Auth;
 using SBRW.Launcher.RunTime.InsiderKit;
 using SBRW.Launcher.RunTime.LauncherCore.APICheckers;
@@ -5238,8 +5238,7 @@ namespace SBRW.Launcher.App.UI_Forms.Main_Screen
 
                             if (Parent_Screen.Screen_Instance != default)
                             {
-                                Parent_Screen.Screen_Instance.WindowState = FormWindowState.Minimized;
-                                Parent_Screen.Screen_Instance.ShowInTaskbar = false;
+                                Parent_Screen.Screen_Instance.Hide();
                             }
                         }
                         break;
@@ -5255,8 +5254,7 @@ namespace SBRW.Launcher.App.UI_Forms.Main_Screen
 
                             if (Parent_Screen.Screen_Instance != default)
                             {
-                                Parent_Screen.Screen_Instance.WindowState = FormWindowState.Normal;
-                                Parent_Screen.Screen_Instance.ShowInTaskbar = true;
+                                Parent_Screen.Screen_Instance.Show();
                             }
                         }
                         break;
